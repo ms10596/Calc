@@ -5,17 +5,28 @@ var equal;
 var result;
 var secondNumber;
 
+function clear() {
+    $("#display").val("");
+}
+
+function current() {
+    return $("#display").val();
+}
+
+function decide(a, b, sign) {
+    if (sign == "+") return a + b;
+    if (sign == "-") return a - b;
+    if (sign == "*") return a * b;
+    if (sign == "/") return a * 1.0 / b;
+}
+
 function n(digit) {
     if (sign == undefined || secondNumber) {
         console.log(digit);
-
         var old = current();
-        console.log(old);
         old += digit;
         if (secondNumber) second = old;
         else first = old;
-        console.log("first: " + first);
-        console.log("second: " + second);
         $("#display").val(old);
     }
     else if (equal == undefined) {
@@ -39,13 +50,11 @@ function n(digit) {
 $("[id^=button]").click(function () {
     x = $(this).val();
     n(x);
-})
+});
 
 
 $("#addButton").click(function () {
-    if(equal != undefined) {
-        console.log("hereeeeeee");
-        // secondNumber = true;
+    if (equal != undefined) {
         equal = undefined;
     }
     else if (first != undefined && second != undefined) {
@@ -68,9 +77,7 @@ $("#addButton").click(function () {
 });
 
 $("#subtractButton").click(function () {
-    if(equal != undefined) {
-        console.log("hereeeeeee");
-        // secondNumber = true;
+    if (equal != undefined) {
         equal = undefined;
     }
     else if (first != undefined && second != undefined) {
@@ -85,16 +92,13 @@ $("#subtractButton").click(function () {
         result = undefined;
     }
     else {
-
         first = current();
     }
     sign = "-";
 });
 
 $("#divideButton").click(function () {
-    if(equal != undefined) {
-        console.log("hereeeeeee");
-        // secondNumber = true;
+    if (equal != undefined) {
         equal = undefined;
     }
     else if (first != undefined && second != undefined) {
@@ -107,23 +111,18 @@ $("#divideButton").click(function () {
         second = undefined;
         equal = undefined;
         result = undefined;
-
     }
     else {
-
         first = current();
     }
     sign = "/";
 });
 
 $("#multiplyButton").click(function () {
-    if(equal != undefined) {
-        console.log("hereeeeeee");
-        // secondNumber = true;
+    if (equal != undefined) {
         equal = undefined;
     }
     else if (first != undefined && second != undefined) {
-        console.log("here");
         second = current();
         result = decide(Number(first), Number(second), sign);
         $("#display").val(result);
@@ -132,17 +131,15 @@ $("#multiplyButton").click(function () {
         second = undefined;
         equal = undefined;
         result = undefined;
-
     }
     else {
-
         first = current();
     }
     sign = "*";
 });
 
 $("#equalsButton").click(function () {
-    if(first != undefined && sign != undefined && second != undefined && result != undefined) {
+    if (first != undefined && sign != undefined && second != undefined && result != undefined) {
         first = result;
         result = decide(Number(first), Number(second), sign);
         $("#display").val(result);
@@ -169,18 +166,3 @@ $("#clearButton").click(function () {
     secondNumber = undefined;
 });
 
-function clear() {
-    $("#display").val("");
-}
-
-function current() {
-    return $("#display").val();
-}
-
-
-function decide(a, b, sign) {
-    if (sign == "+") return a + b;
-    if (sign == "-") return a - b;
-    if (sign == "*") return a * b;
-    if (sign == "/") return a * 1.0 / b;
-}
